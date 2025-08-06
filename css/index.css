@@ -1,0 +1,128 @@
+* {
+      box-sizing: border-box;
+      font-family: 'Itim', cursive;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url(https://cdn.discordapp.com/attachments/1386643127359508525/1395783967621382266/register_wallpaper.png?ex=687f005e&is=687daede&hm=03492bcfe43f4a959590560d4a950fbb0bc813732abf68f7bdca121c3e1f702b&);
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+    }
+
+    .container h2 {
+      font-size: 28px;
+      margin-bottom: 25px;
+    }
+
+    .container img.logo {
+      width: 140px;
+      margin-bottom: 20px;
+      object-fit: contain;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 15px;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .register-link {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .register-link a {
+      color: #28a745;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+    #loadingPopup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 25px 40px;
+      border-radius: 18px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.3);
+      z-index: 10000;
+      text-align: center;
+      max-width: 90%;
+      font-family: 'Itim', cursive;
+      user-select: none;
+    }
+
+    #loadingPopup.loading .spinner {
+      border: 6px solid #ccc;
+      border-top: 6px solid #28a745;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 15px auto;
+      animation: spin 1s linear infinite;
+    }
+
+    #loadingPopup.success {
+      color: green;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    #loadingPopup.error {
+      color: red;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .logo{
+      font-size: 300%;
+    }

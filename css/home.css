@@ -1,0 +1,254 @@
+body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f7fa;
+    }
+
+    header {
+      background: gainsboro;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    /* โลโก้ NoteHub มุมซ้าย */
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      text-decoration: none;
+      color: white;
+    }
+
+    /* เมนู 3 ขีด มุมขวา */
+    .menu-icon {
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .menu-icon div {
+      height: 4px;
+      background-color: white;
+      border-radius: 2px;
+    }
+
+    /* Dropdown เมนู */
+    .dropdown-menu {
+      position: absolute;
+      top: 60px;
+      right: 30px;
+      background: white;
+      color: #34495e;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      width: 220px;
+      display: none;
+      flex-direction: column;
+      padding: 15px 20px;
+      z-index: 1000;
+    }
+
+    .dropdown-menu.active {
+      display: flex;
+    }
+
+    .dropdown-item {
+      margin-bottom: 15px;
+      font-size: 15px;
+    }
+
+    /* ชื่อผู้ใช้งาน editable */
+    .editable-name {
+      font-weight: bold;
+      cursor: pointer;
+      border-bottom: 1px dashed #3498db;
+      width: fit-content;
+    }
+
+    /* ช่องแก้ไขชื่อ */
+    .edit-input {
+      font-size: 15px;
+      padding: 4px 6px;
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #3498db;
+      border-radius: 5px;
+    }
+
+    /* ปุ่มออกจากระบบ */
+    .logout-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      text-align: center;
+      text-decoration: none;
+      user-select: none;
+    }
+
+    .logout-btn:hover {
+      background: #c0392b;
+    }
+
+    /* ส่วนกริดการ์ด */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      padding: 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+      padding: 24px;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #34495e;
+      margin-bottom: 16px;
+    }
+
+    /* ช่องใส่รูป (placeholder) */
+    .card-image-placeholder {
+      background: #dfe6e9;
+      border-radius: 12px;
+      height: 140px;
+      margin-bottom: 20px;
+      width: 295px;
+    }
+
+    .tag {
+      background-color: #ecf0f1;
+      color: #2c3e50;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      display: inline-block;
+      margin-top: 8px;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #27ae60;
+      margin-top: 8px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #3498db;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 15px;
+      text-align: center;
+      user-select: none;
+    }
+
+    .btn:hover {
+      background: #2980b9;
+    }
+
+    @media screen and (max-width: 500px) {
+      header {
+        padding: 15px 20px;
+      }
+      .logo {
+        font-size: 22px;
+      }
+      .card {
+        min-height: auto;
+      }
+    }
+    .nuis{
+      height: 75px;
+    }
+    .bog{
+      font-size: 45px;
+      font-weight: bolder;
+      color: black;
+      font-style: oblique;
+      cursor: default;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    .ooo{
+      border-radius: 12px;
+      height: 140px;
+      margin-bottom: 20px;
+      width: 295px;
+    }
+    .class-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 250px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.class-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  margin: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.class-btn:hover {
+  background-color: #2980b9;
+}
+
+#closePopup {
+  margin-top: 20px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+

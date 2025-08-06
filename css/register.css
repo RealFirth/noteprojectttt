@@ -1,0 +1,183 @@
+body {
+      font-family: 'Itim', cursive;
+      background: url(https://cdn.discordapp.com/attachments/1386643127359508525/1395783967621382266/register_wallpaper.png?ex=687fa91e&is=687e579e&hm=f219d34be344b70fd07dd30ee1a46d7627d08acb292953e14a452b02123574d2&) no-repeat center center fixed;
+      background-size: cover; 
+      margin: 0;     
+      padding: 0;    
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .form-container {
+      background-color: #ffffffcc;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      font-family: 'Itim', cursive;
+    }
+
+    .form-container img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #333;
+      font-family: 'Itim', cursive;
+      font-size: 3rem;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 16px;
+      font-family: 'Itim', cursive;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #28a745;
+      box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
+    }
+
+    .input-error {
+      border-color: red !important;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 13px;
+      margin: -5px 0 10px 0;
+      text-align: left;
+      font-family: 'Itim', cursive;
+    }
+
+    button {
+      background: #28a745;
+      color: white;
+      font-weight: bold;
+      border: none;
+      transition: background 0.3s ease;
+      font-family: 'Itim', cursive;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #218838;
+    }
+
+    #status {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.25);
+      font-weight: bold;
+      font-size: 18px;
+      font-family: 'Itim', cursive;
+      z-index: 10001;
+      max-width: 90%;
+      text-align: center;
+    }
+
+    #status.success {
+      color: green;
+      display: block;
+    }
+
+    #status.error {
+      color: red;
+      display: block;
+    }
+
+    .show-password {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      margin-top: -5px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      user-select: none;
+      font-family: 'Itim', cursive;
+      color: #333;
+    }
+
+    .show-password input {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    #loading {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.8);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .spinner {
+      border: 6px solid #ccc;
+      border-top: 6px solid #28a745;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media(max-width: 450px) {
+      .form-container {
+        padding: 20px 15px;
+        max-width: 95%;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+      }
+    }
+
+    .login-link {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #333;
+      font-family: 'Itim', cursive;
+    }
+
+    .login-link a {
+      color: #28a745;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+    

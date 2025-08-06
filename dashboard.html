@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NoteHub - Home</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      
+        <img src="pic/notehub logo.png" alt="Logo"/>
+      </a>
+      <span class="mui">NOTEHUB</span>
+    </div>
+
+
+      
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <h1>สรุปครบ จบไว สอบผ่านเเน่นอน</h1>
+    <p>สำหรับทุกวัย ม.ต้น ม.ปลาย รวมถึงแนวข้อสอบเข้ามหาลัย เตรียมทหาร</p>
+    <a href="login.html" class="get-started">เริ่มต้น</a>
+  </div>
+
+  <footer class="footer">2025 / NoteHub</footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBydQmR2xYCRUDJ6bR2iivkfEEcw4FeznE",
+      authDomain: "register-app-a736d.firebaseapp.com",
+      projectId: "register-app-a736d",
+      storageBucket: "register-app-a736d.firebasestorage.app",
+      messagingSenderId: "263262495655",
+      appId: "1:263262495655:web:b4bf7dedfb55c868af4c82",
+      measurementId: "G-8RC2V7NWWR"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const profileIcon = document.getElementById('profileIcon');
+    const dropdown = document.getElementById('profileDropdown');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // เปิด/ปิด dropdown
+    profileIcon.addEventListener('click', () => {
+      dropdown.classList.toggle('show');
+    });
+
+    // ปิด dropdown ถ้าคลิกรอบนอก
+    window.addEventListener('click', (e) => {
+      if (!e.target.closest('.profile-container')) {
+        dropdown.classList.remove('show');
+      }
+    });
+
+    // ออกจากระบบ
+    logoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      signOut(auth).then(() => {
+        window.location.href = "login.html";
+      }).catch(err => {
+        alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + err.message);
+      });
+    });
+
+    // ตรวจสอบสถานะผู้ใช้
+    onAuthStateChanged(auth, user => {
+      if (!user) {
+        // ถ้าไม่ได้ล็อกอิน ให้ซ่อนปุ่ม "ออกจากระบบ"
+        logoutBtn.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>NoteHub - เว็บขายสรุปและแนวข้อสอบ</title>
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+<header>
+  <a href="Home.html" class="logo">
+    <img src="pic/notehub logo.png" alt="" class="nuis">
+  </a>
+  <a class="bog">NOTEHUB</a>
+
+  <div class="menu-icon" id="menuIcon" aria-label="เมนู" tabindex="0">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <div class="dropdown-menu" id="dropdownMenu" role="menu" aria-hidden="true">
+    <div class="dropdown-item">
+      ชื่อผู้ใช้งาน: 
+      <span id="username" class="editable-name" tabindex="0" title="คลิกเพื่อเปลี่ยนชื่อ">...</span>
+      <input type="text" id="editNameInput" class="edit-input" style="display:none;" />
+    </div>
+    <div class="dropdown-item">
+      อีเมล: <strong id="userEmail">...</strong>
+    </div>
+    <button class="logout-btn" id="logoutBtn" role="button">ออกจากระบบ</button>
+  </div>
+</header>
+
+<div class="grid-container">
+  <div class="card">
+    <div class="card-image-placeholder">
+      <img src="pic/math.png" alt="" class="ooo">
+    </div>
+    <h3>MATH(คณิตศาสตร์)</h3>
+    <span class="tag">คณิตศาสตร์</span>
+    <div class="price">สรุปเนื้อหา</div>
+    <a href="#" class="btn">เริ่มต้น</a>
+  </div>
+  <div class="card">
+    <div class="card-image-placeholder">
+      <img src="pic/mathexam.png" alt="" class="ooo">
+    </div>
+    <h3>MATH(คณิตศาสตร์)</h3>
+    <span class="tag">คณิตศาสตร์</span>
+    <div class="price">เเนวข้อสอบ</div>
+    <a href="#" class="btn" data-type="exam">เริ่มต้น</a>
+  </div>
+  <div class="card">
+    <div class="card-image-placeholder">
+      <img src="pic/science.png" alt="" class="ooo">
+    </div>
+    <h3>SCIENCE(วิทยาศาสตร์)</h3>
+    <span class="tag">วิทยาศาสตร์</span>
+    <div class="price">สรุปเนื้อหา</div>
+    <a href="#" class="btn">เริ่มต้น</a>
+  </div>
+  <div class="card">
+    <div class="card-image-placeholder">
+      <img src="pic/scienceexam.png" alt="" class="ooo">
+    </div>
+    <h3>SCIENCE(วิทยาศาสตร์)</h3>
+    <span class="tag">วิทยาศาสตร์</span>
+    <div class="price">เเนวข้อสอบ</div>
+    <a href="#" class="btn" data-type="exam">เริ่มต้น</a>
+  </div>
+  <div class="card">
+    <div class="card-image-placeholder">
+      <img src="pic/english.png" alt="" class="ooo">
+    </div>
+    <h3>ENGLISH(ภาษาอังกฤษ)</h3>
+    <span class="tag">ภาษาอังกฤษ</span>
+    <div class="price">สรุปเนื้อหา</div>
+    <a href="#" class="btn">เริ่มต้น</a>
+  </div>
+  <div class="card">
+    <div class="card-image-placeholder">
+      <img src="pic/englishexam.png" alt="" class="ooo">
+    </div>
+    <h3>ENGLISH(ภาษาอังกฤษ)</h3>
+    <span class="tag">ภาษาอังกฤษ</span>
+    <div class="price">เเนวข้อสอบ</div>
+    <a href="#" class="btn" data-type="exam">เริ่มต้น</a>
+  </div>
+  <div class="card">
+    <div class="card-image-placeholder">
+      <img src="pic/thai.png" alt="" class="ooo">
+    </div>
+    <h3>THAI(ภาษาไทย)</h3>
+    <span class="tag">ภาษาไทย</span>
+    <div class="price">สรุปเนื้อหา</div>
+    <a href="#" class="btn">เริ่มต้น</a>
+  </div>
+  <div class="card">
+    <div class="card-image-placeholder">
+      <img src="pic/thaiexam.png" alt="" class="ooo">
+    </div>
+    <h3>THAI(ภาษาไทย)</h3>
+    <span class="tag">ภาษาไทย</span>
+    <div class="price">เเนวข้อสอบ</div>
+    <a href="#" class="btn" data-type="exam">เริ่มต้น</a>
+  </div>
+  <div class="card">
+    <div class="card-image-placeholder">
+      <img src="pic/social.png" alt="" class="ooo">
+    </div>
+    <h3>SOCIAL(สังคม)</h3>
+    <span class="tag">สังคม</span>
+    <div class="price">สรุปเนื้อหา</div>
+    <a href="#" class="btn">เริ่มต้น</a>
+  </div>
+  <div class="card">
+    <div class="card-image-placeholder">
+      <img src="pic/socialexam.png" alt="" class="ooo">
+    </div>
+    <h3>SOCIAL(สังคม)</h3>
+    <span class="tag">สังคม</span>
+    <div class="price">เเนวข้อสอบ</div>
+    <a href="#" class="btn" data-type="exam">เริ่มต้น</a>
+  </div>
+
+
+  
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signOut,
+    updateProfile
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBydQmR2xYCRUDJ6bR2iivkfEEcw4FeznE",
+    authDomain: "register-app-a736d.firebaseapp.com",
+    projectId: "register-app-a736d",
+    storageBucket: "register-app-a736d.firebasestorage.app",
+    messagingSenderId: "263262495655",
+    appId: "1:263262495655:web:b4bf7dedfb55c868af4c82",
+    measurementId: "G-8RC2V7NWWR"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const menuIcon = document.getElementById('menuIcon');
+  const dropdownMenu = document.getElementById('dropdownMenu');
+  const username = document.getElementById('username');
+  const editNameInput = document.getElementById('editNameInput');
+  const userEmailEl = document.getElementById('userEmail');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  let currentUser = null;
+
+  // เปิด-ปิด dropdown เมนู (คลิกหรือกด Enter / Space)
+  function toggleDropdown() {
+    dropdownMenu.classList.toggle('active');
+    const isActive = dropdownMenu.classList.contains('active');
+    dropdownMenu.setAttribute('aria-hidden', !isActive);
+  }
+
+  menuIcon.addEventListener('click', toggleDropdown);
+  menuIcon.addEventListener('keydown', e => {
+    if(e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleDropdown();
+    }
+  });
+
+  // ปิด dropdown ถ้าคลิกนอก
+  document.addEventListener('click', (e) => {
+    if(!dropdownMenu.contains(e.target) && !menuIcon.contains(e.target)) {
+      dropdownMenu.classList.remove('active');
+      dropdownMenu.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  // โหลดข้อมูลผู้ใช้จาก Firebase Auth
+  onAuthStateChanged(auth, user => {
+    if(user) {
+      currentUser = user;
+      username.textContent = user.displayName && user.displayName.trim() !== '' ? user.displayName : '(ไม่มีชื่อ)';
+      userEmailEl.textContent = user.email || '(ไม่มีอีเมล)';
+    } else {
+      // ถ้าไม่ล็อกอิน รีไดเรกต์ไปหน้า login
+      window.location.href = "index.html";
+    }
+  });
+
+  // ฟีเจอร์แก้ไขชื่อผู้ใช้
+  username.addEventListener('click', () => {
+    editNameInput.value = username.textContent === '(ไม่มีชื่อ)' ? '' : username.textContent;
+    username.style.display = 'none';
+    editNameInput.style.display = 'inline-block';
+    editNameInput.focus();
+  });
+
+  editNameInput.addEventListener('blur', async () => {
+    const newName = editNameInput.value.trim();
+    if(newName && currentUser) {
+      try {
+        await updateProfile(currentUser, { displayName: newName });
+        username.textContent = newName;
+      } catch (error) {
+        alert('ไม่สามารถอัปเดตชื่อได้: ' + error.message);
+      }
+    }
+    editNameInput.style.display = 'none';
+    username.style.display = 'inline';
+  });
+
+  editNameInput.addEventListener('keydown', e => {
+    if(e.key === 'Enter') {
+      editNameInput.blur();
+    } else if (e.key === 'Escape') {
+      editNameInput.style.display = 'none';
+      username.style.display = 'inline';
+    }
+  });
+
+  // ออกจากระบบ
+  logoutBtn.addEventListener('click', () => {
+    signOut(auth).then(() => {
+      window.location.href = "index.html";
+    }).catch(err => {
+      alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + err.message);
+    });
+  });
+  // ✅ เริ่มต้น popup "เลือกระดับชั้น"
+const popup = document.getElementById('classPopup');
+const closePopup = document.getElementById('closePopup');
+let currentSubject = '';  // เช่น math
+let currentType = '';     // summary หรือ exam
+
+// ผูกปุ่ม "อ่านเพิ่มเติม"
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    const card = btn.closest('.card');
+    const title = card.querySelector('h3').textContent.trim();       // เช่น MATH(คณิตศาสตร์)
+    const type = card.querySelector('.price').textContent.trim();    // เช่น สรุปเนื้อหา / แนวข้อสอบ
+
+    currentSubject = title.split('(')[0].trim().toLowerCase();       // เช่น math, science, etc.
+    currentType = (type.includes("แนว")) ? 'exam' : 'summary';       // summary / exam
+
+    popup.style.display = 'flex';
+  });
+});
+
+// กดเลือกชั้น
+document.querySelectorAll('.class-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const grade = btn.dataset.grade; // เช่น m4
+    const targetPage = `${currentSubject}_${currentType}_${grade}.html`;
+    window.location.href = targetPage;
+  });
+});
+
+// ปิด popup
+closePopup.addEventListener('click', () => {
+  popup.style.display = 'none';
+});
+
+
+</script>
+<div id="classPopup" class="class-popup">
+  <div class="popup-content">
+    <h4>เลือกระดับชั้น</h4>
+    <div class="class-buttons">
+      <button class="class-btn" data-grade="m4">ม.4</button>
+      <button class="class-btn" data-grade="m5">ม.5</button>
+      <button class="class-btn" data-grade="m6">ม.6</button>
+    </div>
+    <button id="closePopup">ยกเลิก</button>
+  </div>
+</div>
+
+</body>
+</html>

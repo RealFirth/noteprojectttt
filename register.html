@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>สมัครสมาชิก</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/register.css">
+ 
+</head>
+<body>
+
+  <div class="form-container">
+
+     
+
+    <h2>สมัครสมาชิก</h2>
+
+    <form id="registerForm" novalidate>
+      <input type="text" id="fullname" placeholder="ชื่อ-นามสกุล" required />
+      <div id="fullnameError" class="error-message"></div>
+
+      <input type="email" id="email" placeholder="อีเมล" required />
+      <div id="emailError" class="error-message"></div>
+
+      <input type="password" id="password" placeholder="รหัสผ่าน" required />
+      <div id="passwordError" class="error-message"></div>
+
+      <input type="password" id="confirmPassword" placeholder="ยืนยันรหัสผ่าน" required />
+      <div id="confirmPasswordError" class="error-message"></div>
+
+      <label class="show-password">
+        <input type="checkbox" id="showPassword" />
+        แสดงรหัสผ่าน
+      </label>
+
+      <button type="submit">ลงทะเบียน</button>
+      <button type="reset" style="background:#6c757d; margin-top: 6px;">รีเซ็ตข้อมูล</button>
+    </form>
+
+    <div id="status"></div>
+
+    <div class="login-link">
+      มีบัญชีแล้ว? <a href="login.html">เข้าสู่ระบบ</a>
+    </div>
+
+  </div>
+
+  <div id="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBydQmR2xYCRUDJ6bR2iivkfEEcw4FeznE",
+      authDomain: "register-app-a736d.firebaseapp.com",
+      projectId: "register-app-a736d",
+      storageBucket: "register-app-a736d.firebasestorage.app",
+      messagingSenderId: "263262495655",
+      appId: "1:263262495655:web:b4bf7dedfb55c868af4c82",
+      measurementId: "G-8RC2V7NWWR"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const form = document.getElementById('registerForm');
+    const status = document.getElementById('status');
+    const showPassword = document.getElementById('showPassword');
+    const loading = document.getElementById('loading');
+
+    const fullnameInput = document.getElementById('fullname');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+
+    const fullnameError = document.getElementById('fullnameError');
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+    const confirmPasswordError = document.getElementById('confirmPasswordError');
+
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+
+    function validatePassword(password) {
+      return password.length >= 8;
+    }
+
+    showPassword.addEventListener('change', () => {
+      const type = showPassword.checked ? 'text' : 'password';
+      passwordInput.type = type;
+      confirmPasswordInput.type = type;
+    });
+
+    fullnameInput.addEventListener('input', () => {
+      if(fullnameInput.value.trim() === '') {
+        fullnameError.textContent = 'กรุณากรอกชื่อ-นามสกุล';
+        fullnameInput.classList.add('input-error');
+      } else {
+        fullnameError.textContent = '';
+        fullnameInput.classList.remove('input-error');
+      }
+    });
+
+    emailInput.addEventListener('input', () => {
+      if(!validateEmail(emailInput.value.trim())) {
+        emailError.textContent = 'รูปแบบอีเมลไม่ถูกต้อง';
+        emailInput.classList.add('input-error');
+      } else {
+        emailError.textContent = '';
+        emailInput.classList.remove('input-error');
+      }
+    });
+
+    passwordInput.addEventListener('input', () => {
+      if(!validatePassword(passwordInput.value)) {
+        passwordError.textContent = 'รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร';
+        passwordInput.classList.add('input-error');
+      } else {
+        passwordError.textContent = '';
+        passwordInput.classList.remove('input-error');
+      }
+    });
+
+    confirmPasswordInput.addEventListener('input', () => {
+      if(confirmPasswordInput.value !== passwordInput.value) {
+        confirmPasswordError.textContent = 'รหัสผ่านไม่ตรงกัน';
+        confirmPasswordInput.classList.add('input-error');
+      } else {
+        confirmPasswordError.textContent = '';
+        confirmPasswordInput.classList.remove('input-error');
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      fullnameError.textContent = '';
+      emailError.textContent = '';
+      passwordError.textContent = '';
+      confirmPasswordError.textContent = '';
+      status.textContent = '';
+      status.className = '';
+      status.style.display = 'none';
+
+      let valid = true;
+
+      if(fullnameInput.value.trim() === '') {
+        fullnameError.textContent = 'กรุณากรอกชื่อ-นามสกุล';
+        fullnameInput.classList.add('input-error');
+        valid = false;
+      }
+      if(!validateEmail(emailInput.value.trim())) {
+        emailError.textContent = 'รูปแบบอีเมลไม่ถูกต้อง';
+        emailInput.classList.add('input-error');
+        valid = false;
+      }
+      if(!validatePassword(passwordInput.value)) {
+        passwordError.textContent = 'รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร';
+        passwordInput.classList.add('input-error');
+        valid = false;
+      }
+      if(confirmPasswordInput.value !== passwordInput.value) {
+        confirmPasswordError.textContent = 'รหัสผ่านไม่ตรงกัน';
+        confirmPasswordInput.classList.add('input-error');
+        valid = false;
+      }
+
+      if(!valid) return;
+
+      if(!confirm('ยืนยันการสมัครสมาชิก?')) return;
+
+      try {
+        loading.style.display = 'flex';
+        status.style.display = 'block';
+        status.textContent = '⏳ กำลังสมัครสมาชิก... โปรดรอ';
+        status.className = '';
+
+        const userCredential = await createUserWithEmailAndPassword(auth, emailInput.value.trim(), passwordInput.value);
+        const user = userCredential.user;
+
+        await setDoc(doc(db, "users", user.uid), {
+          fullname: fullnameInput.value.trim(),
+          email: emailInput.value.trim(),
+          createdAt: serverTimestamp()
+        });
+
+        status.className = 'success';
+        status.textContent = '✅ สมัครสมาชิกสำเร็จ!';
+        form.reset();
+      } catch (error) {
+        status.className = 'error';
+        let friendlyMsg = '❌ เกิดข้อผิดพลาด: ' + error.message;
+        if(error.code === 'auth/email-already-in-use') {
+          friendlyMsg = '❌ อีเมลนี้ถูกใช้งานแล้ว';
+        } else if(error.code === 'auth/invalid-email') {
+          friendlyMsg = '❌ รูปแบบอีเมลไม่ถูกต้อง';
+        } else if(error.code === 'auth/weak-password') {
+          friendlyMsg = '❌ รหัสผ่านอ่อนเกินไป';
+        }
+        status.textContent = friendlyMsg;
+      } finally {
+        loading.style.display = 'none';
+      }
+    });
+
+    // กดตรงไหนก็ซ่อน loading และ status popup ได้
+    document.body.addEventListener('click', () => {
+      loading.style.display = 'none';
+      status.style.display = 'none';
+    });
+
+    // ป้องกันไม่ให้การคลิกในฟอร์มทำให้ popup หาย
+    form.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+  </script>
+</body>
+</html>

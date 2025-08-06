@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เข้าสู่ระบบ-NoteHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/index.css">
+  
+</head>
+<body>
+
+  <div class="container">
+    <img class="logo" src="pic/notehub logo.png" alt="Logo" />
+    <h2>เข้าสู่ระบบ</h2>
+    <input type="email" id="email" placeholder="อีเมล" />
+    <input type="password" id="password" placeholder="รหัสผ่าน" />
+    <button id="loginBtn">เข้าสู่ระบบ</button>
+    <div class="register-link">
+      ยังไม่มีบัญชี? <a href="register.html">สมัครสมาชิก</a>
+    </div>
+  </div>
+
+  <div id="loadingPopup" class="loading">
+    <div class="spinner"></div>
+    <div id="popupText">กำลังเข้าสู่ระบบ...</div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBydQmR2xYCRUDJ6bR2iivkfEEcw4FeznE",
+      authDomain: "register-app-a736d.firebaseapp.com",
+      projectId: "register-app-a736d",
+      storageBucket: "register-app-a736d.firebasestorage.app",
+      messagingSenderId: "263262495655",
+      appId: "1:263262495655:web:b4bf7dedfb55c868af4c82",
+      measurementId: "G-8RC2V7NWWR"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const loginBtn = document.getElementById('loginBtn');
+    const loadingPopup = document.getElementById('loadingPopup');
+    const popupText = document.getElementById('popupText');
+
+    function showLoadingPopup(message, type = "loading") {
+      popupText.textContent = message;
+      loadingPopup.className = "";
+      loadingPopup.classList.add(type);
+      loadingPopup.style.display = "block";
+
+      if(type !== "loading") {
+        // หายไปเองหลัง 2 วิ
+        setTimeout(() => {
+          loadingPopup.style.display = "none";
+        }, 2000);
+      }
+    }
+
+    loginBtn.addEventListener('click', () => {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!email || !password) {
+        showLoadingPopup("กรุณากรอกข้อมูลให้ครบถ้วน", "error");
+        return;
+      }
+      if (password.length < 8) {
+        showLoadingPopup("รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร", "error");
+        return;
+      }
+
+      showLoadingPopup("กำลังเข้าสู่ระบบ...", "loading");
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          showLoadingPopup("เข้าสู่ระบบสำเร็จ!", "success");window.location.href = "home.html";
+        })
+        .catch(error => {
+          showLoadingPopup("เข้าสู่ระบบไม่สำเร็จ: " + error.message, "error");
+        });
+    });
+    
+  </script>
+</body>
+</html>
